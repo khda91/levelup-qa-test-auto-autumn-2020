@@ -1,0 +1,8 @@
+**/*.iml
+**/.idea
+**/out
+**/targer
+**/build
+**/.DS_Store
+
+**/*.class
