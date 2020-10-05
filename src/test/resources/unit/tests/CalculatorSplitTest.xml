@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="CalculatorTest">
+
+    <test name="Add Calc tests">
+        <classes>
+            <class name="ru.levelup.qa.at.unit.tests.AddCalculatorTest"/>
+        </classes>
+    </test>
+
+    <test name="Divide Calc tests">
+        <classes>
+            <class name="ru.levelup.qa.at.unit.tests.DivideCalculatorTest"/>
+            <class name="ru.levelup.qa.at.unit.tests.MultiplyCalculatorTest"/>
+        </classes>
+    </test>
+
+</suite>
