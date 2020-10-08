@@ -17,6 +17,8 @@ public abstract class BaseCalculatorTest {
     @BeforeSuite
     public void setUpSuite() {
         System.out.println("Set up Test Suite");
+
+        System.out.println("Browser name: '" + System.getProperty("browserName") + "'");
     }
 
     @BeforeTest

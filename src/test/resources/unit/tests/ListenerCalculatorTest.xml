@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="CalculatorTest">
+
+    <listeners>
+        <listener class-name="ru.levelup.qa.at.unit.tests.SimpleListener"/>
+    </listeners>
+
+    <test name="Common tests">
+        <classes>
+            <class name="ru.levelup.qa.at.unit.tests.AddCalculatorTest"/>
+            <class name="ru.levelup.qa.at.unit.tests.DivideCalculatorTest"/>
+        </classes>
+    </test>
+
+</suite>

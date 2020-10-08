@@ -18,4 +18,12 @@ public class Calculator {
         return a / b;
     }
 
+    public double power(double a, int power) {
+        double res = 1;
+        for (int i = 0; i < power; i++) {
+            res *= a;
+        }
+        return res;
+    }
+
 }

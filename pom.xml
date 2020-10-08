@@ -17,12 +17,31 @@
         <!-- dependencies -->
         <testng.version>7.3.0</testng.version>
         <selenium-java.version>3.141.59</selenium-java.version>
+        <hamcrest.version>2.2</hamcrest.version>
+        <commons-lang3.version>3.11</commons-lang3.version>
 
         <!-- plugins -->
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>calculator-split-test</id>
+            <properties>
+                <suite.name>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml</suite.name>
+                <browser.name>Firefox</browser.name>
+            </properties>
+        </profile>
+        <profile>
+            <id>calculator-test</id>
+            <properties>
+                <suite.name>${project.basedir}/src/test/resources/unit/tests/CalculatorTest.xml</suite.name>
+                <browser.name>IE</browser.name>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
         <!-- Test NG -->
@@ -31,6 +50,12 @@
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Selenium -->
@@ -40,6 +65,18 @@
             <version>${selenium-java.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+            <version>${hamcrest.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -60,12 +97,13 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
+                    <skipTests>true</skipTests>
                     <suiteXmlFiles>
                         <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml</suiteXmlFile>
-                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorTest.xml</suiteXmlFile>
+<!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorTest.xml</suiteXmlFile>-->
 <!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml</suiteXmlFile>-->
 <!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml</suiteXmlFile>-->
-<!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml</suiteXmlFile>-->
+<!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/${suite.name}.xml</suiteXmlFile>-->
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
@@ -74,6 +112,14 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${maven-failsafe-plugin.version}</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suite.name}</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <systemProperties>
+                        <browserName>${browser.name}</browserName>
+                    </systemProperties>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>integration-test</phase>
