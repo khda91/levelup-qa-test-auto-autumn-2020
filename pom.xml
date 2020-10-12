@@ -19,6 +19,8 @@
         <selenium-java.version>3.141.59</selenium-java.version>
         <hamcrest.version>2.2</hamcrest.version>
         <commons-lang3.version>3.11</commons-lang3.version>
+        <webdrivermanager.version>4.2.2</webdrivermanager.version>
+        <commons-io.version>2.8.0</commons-io.version>
 
         <!-- plugins -->
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -63,6 +65,18 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium-java.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
         </dependency>
 
         <dependency>
