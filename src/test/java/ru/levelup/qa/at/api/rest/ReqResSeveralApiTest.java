@@ -1,4 +1,4 @@
-package ru.levelup.qa.at.api;
+package ru.levelup.qa.at.api.rest;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;

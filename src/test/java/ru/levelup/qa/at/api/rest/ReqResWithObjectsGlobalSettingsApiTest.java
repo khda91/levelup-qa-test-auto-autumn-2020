@@ -1,13 +1,17 @@
-package ru.levelup.qa.at.api;
+package ru.levelup.qa.at.api.rest;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.config.ObjectMapperConfig;
+import io.restassured.config.RestAssuredConfig;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.levelup.qa.at.api.UserApiObject;
+import ru.levelup.qa.at.api.UserApiObjectGlobalSettings;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,7 +20,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 
-public class ReqResWithObjectsApiTest {
+public class ReqResWithObjectsGlobalSettingsApiTest {
 
     RequestSpecification requestSpecification;
 
@@ -24,7 +28,13 @@ public class ReqResWithObjectsApiTest {
 
     @BeforeMethod
     public void setUp() {
+
         requestSpecification = new RequestSpecBuilder()
+                .setConfig(RestAssuredConfig.config().objectMapperConfig(
+                        new ObjectMapperConfig(
+
+                        )
+                ))
                 .setBaseUri("https://reqres.in")
                 .setContentType(ContentType.JSON)
                 .log(LogDetail.ALL)
@@ -37,10 +47,10 @@ public class ReqResWithObjectsApiTest {
 
     @Test
     public void createUserTest() {
-        UserApiObject user = new UserApiObject();
+        UserApiObjectGlobalSettings user = new UserApiObjectGlobalSettings();
         user.setName("Jane");
         user.setJob("developer");
-        UserApiObject apiObjectResponse = given()
+        UserApiObjectGlobalSettings apiObjectResponse = given()
                 .spec(requestSpecification)
                 .body(user)
                 .when()
@@ -49,7 +59,7 @@ public class ReqResWithObjectsApiTest {
                 .spec(responseSpecification)
                 .statusCode(201)
                 .extract()
-                .as(UserApiObject.class);
+                .as(UserApiObjectGlobalSettings.class);
 
         assertThat(apiObjectResponse, samePropertyValuesAs(user, "id", "createdAt"));
     }
