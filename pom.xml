@@ -24,6 +24,8 @@
         <rest-assured.version>4.3.1</rest-assured.version>
         <jackson-databind.version>2.11.3</jackson-databind.version>
         <postgresql.version>42.2.18</postgresql.version>
+        <allure.version>2.13.6</allure.version>
+        <aspectj.version>1.8.10</aspectj.version>
 
         <!-- plugins -->
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -120,6 +122,13 @@
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
         </dependency>
+
+        <!-- Allure -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -142,11 +151,12 @@
                 <configuration>
                     <skipTests>true</skipTests>
                     <suiteXmlFiles>
-                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml</suiteXmlFile>
-<!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorTest.xml</suiteXmlFile>-->
-<!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml</suiteXmlFile>-->
-<!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml</suiteXmlFile>-->
-<!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/${suite.name}.xml</suiteXmlFile>-->
+                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml
+                        </suiteXmlFile>
+                        <!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorTest.xml</suiteXmlFile>-->
+                        <!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml</suiteXmlFile>-->
+                        <!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml</suiteXmlFile>-->
+                        <!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/${suite.name}.xml</suiteXmlFile>-->
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
@@ -156,12 +166,18 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${maven-failsafe-plugin.version}</version>
                 <configuration>
+                    <!--                    <suiteXmlFiles>-->
+                    <!--                        <suiteXmlFile>${suite.name}</suiteXmlFile>-->
+                    <!--                    </suiteXmlFiles>-->
                     <suiteXmlFiles>
-                        <suiteXmlFile>${suite.name}</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/allure/TestSuite.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <systemProperties>
-                        <browserName>${browser.name}</browserName>
-                    </systemProperties>
+                    <!--                    <systemProperties>-->
+                    <!--                        <browserName>${browser.name}</browserName>-->
+                    <!--                    </systemProperties>-->
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
                 </configuration>
                 <executions>
                     <execution>
@@ -171,6 +187,22 @@
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.10.0</version>
+                <configuration>
+                    <resultsDirectory>${project.basedir}/allure-results</resultsDirectory>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -185,7 +217,9 @@
                             <sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
                             <wsdlOptions>
                                 <wsdlOption>
-                                    <wsdl>http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL</wsdl>
+                                    <wsdl>
+                                        http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL
+                                    </wsdl>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>

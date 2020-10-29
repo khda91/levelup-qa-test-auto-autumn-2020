@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Selenium">
+
+    <test name="Allure Example">
+        <classes>
+            <class name="ru.levelup.qa.at.allure.AllureExampleTest"/>
+        </classes>
+    </test>
+
+</suite>

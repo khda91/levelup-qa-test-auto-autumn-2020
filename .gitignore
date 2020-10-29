@@ -292,3 +292,5 @@ cwallet.sso.lck
 
 **/*.iml
 **/.idea
+**/allure-results
+**/.allure
