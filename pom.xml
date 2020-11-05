@@ -150,9 +150,10 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <skipTests>true</skipTests>
+                    <parallel>classes</parallel>
+                    <threadCountClasses>2</threadCountClasses>
                     <suiteXmlFiles>
-                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml
-                        </suiteXmlFile>
+                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml</suiteXmlFile>
                         <!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorTest.xml</suiteXmlFile>-->
                         <!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml</suiteXmlFile>-->
                         <!--                        <suiteXmlFile>${project.basedir}/src/test/resources/unit/tests/CalculatorSplitTest.xml</suiteXmlFile>-->
